@@ -6,16 +6,17 @@
 <body>
     <h1>CityBikes API Demo</h1>
 
-    <form method="POST">
-        <label for="country">Select a Country:</label>
-        <select name="country" id="country">
-            <option value="all">All Countries</option>
-            {% for country in countries %}
-                <option value="{{ country }}">{{ country }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Get Stations">
-    </form>
+   <form method="POST">
+    <label for="country">Select a Country:</label>
+    <select name="country" id="country">
+        <option value="All Countries">All Countries</option>
+        {% for country in countries %}
+            <option value="{{ country }}">{{ country }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Get Stations">
+</form>
+
 
     <ul>
         {% if stations %}
