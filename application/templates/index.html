@@ -9,7 +9,7 @@
     <form method="POST">
         <label for="country">Select a Country:</label>
         <select name="country" id="country">
-            <option value="all">All Countries</option>
+            <option value="all">Choose Country</option>
             {% for country in countries %}
                 <option value="{{ country }}">{{ country }}</option>
             {% endfor %}
