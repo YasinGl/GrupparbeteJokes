@@ -1,20 +1,28 @@
+from flask import Flask
 import pytest
 import requests
 import ssl
 import os
-from application import app, get_country_city_data, get_stations_by_country
+from requests.exceptions import ConnectionError
+import sys
 
-def test_server_has_endpoint():
-    context = ssl._create_unverified_context()
-    endpoint_url = 'http://127.0.0.1:5000/'
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir)
 
-    with pytest.raises(requests.HTTPError):
-        response = requests.get(endpoint_url, verify=False)
-        response.raise_for_status()
+from application.app import app
 
-
+def test_url_up_and_running():
+    '''Här skriver vi ett test för att simulera en request till Flask applikationen utan att köra servern, detta görs genom att använda Flask 'test_client' '''
+    with app.test_client() as client:
+        try:
+            response = client.get('/')
+            assert response.status_code == 200
+        except ConnectionError:
+            pytest.fail("Failed to connect to the URL")
 
 def test_file_structure():
+    '''Denna test_case kollar filstrukturer och kollar om den stämmer'''
     assert "application" in os.listdir(os.curdir)
     assert "docs" in os.listdir(os.curdir)
     assert "tests" in os.listdir(os.curdir)
@@ -24,5 +32,3 @@ def test_file_structure():
     assert "form.html" in os.listdir(os.curdir+"/application"+"/templates")
     assert "index.html" in os.listdir(os.curdir+"/application"+"/templates")
     assert "layout.html" in os.listdir(os.curdir+"/application"+"/templates")
-
-
