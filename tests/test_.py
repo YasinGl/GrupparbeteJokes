@@ -10,7 +10,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.insert(0, parent_dir)
 
-from application.app import app
+from application.app import app, get_country_city_data, get_stations_by_country
 
 def test_Is_online_index():
     '''Här görs en request.get fär att kolla om våran endpoint är funktionell'''
@@ -36,3 +36,16 @@ def test_file_structure():
     assert "form.html" in os.listdir(os.curdir+"/application"+"/templates")
     assert "index.html" in os.listdir(os.curdir+"/application"+"/templates")
     assert "layout.html" in os.listdir(os.curdir+"/application"+"/templates")
+
+def test_get_country_city_data():
+    '''I denna test_case görs ett anrop till funktionen get_country_city_data. 
+    Den hämtar sedan resultatet som förväntas returnera två listor. En för länder och den andra för cities.'''
+    countries, cities = get_country_city_data()
+    assert isinstance(countries, list)
+    assert isinstance(cities, list)
+
+def test_get_stations_by_country():
+    '''Här anropar vi get_station_by_country funktionen som gör ett anrop där den förväntas returnera 'SE' (Sverige) som ett valalternativ om det existerar.'''
+    stations = get_stations_by_country('SE')
+    for station in stations:
+        assert station['location']['country'] == 'SE'
