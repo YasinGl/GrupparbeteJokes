@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 import pycountry
 import requests
 
@@ -61,6 +61,7 @@ def index():
             stations = get_stations_by_country(country_code)
 
     return render_template('index.html', stations=stations, countries=country_names, cities=cities)
+
 
 
 if __name__ == '__main__':

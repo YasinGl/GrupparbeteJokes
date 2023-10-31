@@ -1,45 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>CityBikes</title>
-</head>
-<body>
-    <h1>CityBikes</h1>
-
-   <form method="POST">
-    <label for="country">Select a Country:</label>
-    <select name="country" id="country">
-        <option value="All Countries">All Countries</option>
-        {% for country in countries %}
-            <option value="{{ country }}">{{ country }}</option>
-        {% endfor %}
-    </select>
-    <input type="submit" value="Get Stations">
-</form>
-
-
-    <ul>
-        {% if stations %}
-            {% for station in stations %}
-                <li>
-                    <h2>{{ station.name }}</h2>
-                    <p>Location: {{ station.location.city }}</p>
-                    <p>Latitude: {{ station.location.latitude }}</p>
-                    <p>Longitude: {{ station.location.longitude }}</p>
-                    <iframe
-                        width="600"
-                        height="450"
-                        frameborder="5"
-                        scrolling="no"
-                        marginheight="0"
-                        marginwidth="0"
-                        src="https://www.google.com/maps/embed/v1/view?key=AIzaSyAWn6u1KkmmuExBHMGNUuyKe4BgFsGHgq4&center={{ station.location.latitude }},{{ station.location.longitude }}&zoom=18&maptype=satellite">
-                    </iframe>
-                </li>
-            {% endfor %}
-        {% else %}
-            <li>No stations found.</li>
-        {% endif %}
-    </ul>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-secondary bg-secondary-color-rgb">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">City Bikes</a>
+      <!--
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      -->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <button class="btn btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="#">Mapp</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+{% endblock %}
