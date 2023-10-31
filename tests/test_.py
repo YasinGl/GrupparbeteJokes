@@ -2,6 +2,7 @@ import pytest
 import requests
 import ssl
 import os
+from application import app, get_country_city_data, get_stations_by_country
 
 def test_server_has_endpoint():
     context = ssl._create_unverified_context()
