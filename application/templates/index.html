@@ -2,6 +2,10 @@
 <html>
 <head>
     <title>CityBikes API Demo</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWn6u1KkmmuExBHMGNUuyKe4BgFsGHgq4&center"></script>
+    <style>
+        /* Add any custom CSS styles here if needed. */
+    </style>
 </head>
 <body>
     <h1>CityBikes API Demo</h1>
@@ -25,15 +29,24 @@
                     <p>Location: {{ station.location.city }}</p>
                     <p>Latitude: {{ station.location.latitude }}</p>
                     <p>Longitude: {{ station.location.longitude }}</p>
-                    <iframe
-                        width="600"
-                        height="450"
-                        frameborder="5"
-                        scrolling="no"
-                        marginheight="0"
-                        marginwidth="0"
-                        src="https://www.google.com/maps/embed/v1/view?key=AIzaSyAWn6u1KkmmuExBHMGNUuyKe4BgFsGHgq4&center={{ station.location.latitude }},{{ station.location.longitude }}&zoom=18&maptype=satellite">
-                    </iframe>
+                    <div id="map_{{ station.name }}" style="width: 600px; height: 450px;"></div>
+                    <script>
+                        function initMap_{{ station.name }}() {
+                            var latitude = {{ station.location.latitude }};
+                            var longitude = {{ station.location.longitude }};
+                            var stationLocation = { lat: latitude, lng: longitude };
+                            var map_{{ station.name }} = new google.maps.Map(document.getElementById('map_{{ station.name }}'), {
+                                zoom: 18,
+                                center: stationLocation,
+                                mapTypeId: 'satellite'
+                            });
+                            var marker = new google.maps.Marker({
+                                position: stationLocation,
+                                map: map_{{ station.name }}
+                            });
+                        }
+                        initMap_{{ station.name }}();
+                    </script>
                 </li>
             {% endfor %}
         {% else %}
@@ -42,3 +55,4 @@
     </ul>
 </body>
 </html>
+
