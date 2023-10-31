@@ -1,1 +1,56 @@
-# layout
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CityBikes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CityBikes</title>
+    <!-- Länka till Bootstrap CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Länka till Bootstrap JavaScript via CDN (om det behövs) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+    <main>{% block content %}{% endblock %}</main>
+    <!--
+    <h1>CityBikes</h1>
+    -->
+
+   <form method="POST"><br>
+    <label for="country">Select a Country:</label>
+    <select name="country" id="country">
+        <option value="All Countries">All Countries</option>
+        {% for country in countries %}
+            <option value="{{ country }}">{{ country }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Get Stations">
+</form>
+
+    <ul>
+        {% if stations %}
+            {% for station in stations %}
+                <li>
+                    <h2>{{ station.name }}</h2>
+                    <p>Location: {{ station.location.city }}</p>
+                    <p>Latitude: {{ station.location.latitude }}</p>
+                    <p>Longitude: {{ station.location.longitude }}</p>
+                    <iframe
+                        width="600"
+                        height="450"
+                        frameborder="5"
+                        scrolling="no"
+                        marginheight="0"
+                        marginwidth="0"
+                        src="https://www.google.com/maps/embed/v1/view?key=AIzaSyAWn6u1KkmmuExBHMGNUuyKe4BgFsGHgq4&center={{ station.location.latitude }},{{ station.location.longitude }}&zoom=18&maptype=satellite">
+                    </iframe>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No stations found.</li>
+        {% endif %}
+    </ul>
+</body>
+</html>
