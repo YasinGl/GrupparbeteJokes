@@ -12,6 +12,10 @@ sys.path.insert(0, parent_dir)
 
 from application.app import app
 
+def test_Is_online_index():
+    '''Här görs en request.get fär att kolla om våran endpoint är funktionell'''
+    assert requests.get("http://127.0.0.1:5000", timeout=10)
+
 def test_url_up_and_running():
     '''Här skriver vi ett test för att simulera en request till Flask applikationen utan att köra servern, detta görs genom att använda Flask 'test_client' '''
     with app.test_client() as client:
