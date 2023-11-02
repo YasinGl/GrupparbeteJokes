@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, make_response
 import pycountry
+# noinspection PyPackageRequirements
 import requests
 
 app = Flask(__name__)
